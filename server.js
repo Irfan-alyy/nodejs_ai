@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const multer = require('multer');
 const { OpenAI } = require('openai');
-const cors= require("cors")
+const cors = require("cors")
 const app = express();
 
 const allowedOrigins = ['http://localhost:5173', 'http://localhost:3000'];
@@ -14,16 +14,16 @@ const corsOptions = {
     if (!origin) {
       // Option A: Block requests without origin (stricter)
       // callback(new Error('Not allowed by CORS'));
-      
+
       // Option B: Allow requests without origin (current behavior)
       return callback(null, true);
     }
-    
+
     if (allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       const error = new Error('Not allowed by CORS');
-      error.status=403 // forbidden
+      error.status = 403 // forbidden
       callback(error)
     }
   },
@@ -89,29 +89,42 @@ app.post('/create-image', upload.single('image'), asyncHandler(async (req, res) 
 
 // 3. Fixed error handler
 app.use((error, req, res, next) => {
+  //cors policy errors
+
+  if (error.message === 'Not allowed by CORS') {
+    console.error('Cors error:', error.message)
+    return res.status(403).json({
+      error: 'CORS policy violation',
+      message: 'Origin not allowed',
+      allowedOrigins: allowedOrigins
+    })
+  }
+
+
+
   // Handle Multer-specific errors
   if (error instanceof multer.MulterError) {
     console.error('Multer error:', error);
-    return res.status(400).json({ 
-      error: 'Upload failed', 
-      message: error.message 
+    return res.status(400).json({
+      error: 'Upload failed',
+      message: error.message
     });
   }
 
   // Handle file filter errors
   if (error.message === 'Only image files are allowed') {
     console.error('File type error:', error);
-    return res.status(400).json({ 
-      error: 'Invalid file type', 
-      message: error.message 
+    return res.status(400).json({
+      error: 'Invalid file type',
+      message: error.message
     });
   }
 
   // Handle all other errors
   console.error('Server error:', error);
-  return res.status(500).json({ 
-    error: 'Internal server error', 
-    message:  error.message
+  return res.status(500).json({
+    error: 'Internal server error',
+    message: process.env.NODE_ENV === "development" ? error.message : "Something went wrong"
   });
 });
 
