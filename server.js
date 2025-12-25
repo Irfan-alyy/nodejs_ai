@@ -5,10 +5,19 @@ const { OpenAI } = require('openai');
 const cors= require("cors")
 const app = express();
 
+const allowedOrigins = ['http://localhost:5173', 'http://localhost:3000'];
 
-app.use(cors({
-  origin:["http://localhost:5173", "http://localhost:3000"]
-}))
+const corsOptions= {
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}
+
+app.use(cors(corsOptions))
 
 const PORT = process.env.PORT || 3000;
 
@@ -30,10 +39,9 @@ const upload = multer({
   }
 });
 
-app.post('/create-image', upload.single('image'), async (req, res) => {
+app.post('/create-image',  upload.single('image'), async (req, res) => {
   const query= req.query
   console.log("params",query);
-  
   if (!req.file) {
     return res.status(400).json({ error: 'No image provided' });
   }
