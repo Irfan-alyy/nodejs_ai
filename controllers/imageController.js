@@ -1,7 +1,6 @@
 // controllers/imageController.js
 const { OpenAI } = require('openai');
 const PromptBuilder = require('../services/promptBuilder');
-
 class ImageController {
   constructor() {
     this.openai = new OpenAI({
@@ -12,6 +11,7 @@ class ImageController {
   /**
    * Main handler for dental image creation
    */
+  
   async createImage(req, res, next) {
     try {
       // 1. Validate file exists
@@ -69,21 +69,23 @@ class ImageController {
   async callOpenAI(prompt, imageDataUrl) {
     try {
       // Option 1: Use GPT-4 Vision to analyze and describe modifications
-      const visionResponse = await this.openai.chat.completions.create({
-        model: 'gpt-4o',
-        messages: [
-          {
-            role: 'user',
-            content: [
-              { type: 'text', text: prompt },
-              { type: 'image_url', image_url: { url: imageDataUrl } }
-            ]
-          }
-        ],
-        max_tokens: 500
-      });
+      // const visionResponse = await this.openai.chat.completions.create({
+      //   model: 'gpt-4o',
+      //   messages: [
+      //     {
+      //       role: 'user',
+      //       content: [
+      //         { type: 'text', text: prompt },
+      //         { type: 'image_url', image_url: { url: imageDataUrl } }
+      //       ]
+      //     }
+      //   ],
+      //   max_tokens: 500
+      // });
 
-      const description = visionResponse.choices[0].message.content;
+      // const description = visionResponse.choices[0].message.content;
+      const description = "testing local"
+
 
       // Option 2: Use DALL-E for actual image generation
       // Note: DALL-E 3 doesn't support image-to-image editing directly
