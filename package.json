@@ -1,12 +1,13 @@
 {
   "name": "project_one",
   "version": "1.0.0",
-  "description": "",
+  "description": "AI image processing API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node-dev server.js",
-    "start": "node-dev server.js"
+    "start": "node-dev server.js",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "keywords": [],
   "author": "",
@@ -23,5 +24,17 @@
     "jest": "^30.2.0",
     "node-dev": "^8.0.0",
     "supertest": "^7.1.4"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/test/**/*.test.js",
+      "**/__tests__/**/*.test.js"
+    ],
+    "collectCoverageFrom": [
+      "**/*.js",
+      "!**/node_modules/**",
+      "!**/coverage/**"
+    ]
   }
 }
