@@ -59,6 +59,7 @@ class ImageController {
         success: true,
         data: {
           generatedImageUrl: response.imageUrl,
+          imageData: response.imageDate,
           description: response.description,
           prompt: prompt,
           modifications: promptBuilder.modifications
@@ -101,9 +102,15 @@ class ImageController {
       
       // For now, we'll use the vision model's description
       // In production, you might integrate with other image processing APIs
+      const imageUrl= "https://images.pexels.com/photos/20620210/pexels-photo-20620210.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200"
+      const imageBuffer= await this.downloadImage(imageUrl);
+      const base64Image = imageBuffer.toString('base64');
+      const dataUrl = `data:image/png;base64,${base64Image}`;
+
       return {
         description: description,
-        imageUrl: "https://images.pexels.com/photos/20620210/pexels-photo-20620210.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
+        imageUrl:imageUrl ,
+        imageDate:dataUrl
         // In real implementation, this would be the actual generated image URL
       };
 
@@ -116,6 +123,24 @@ class ImageController {
   /**
    * Handle OpenAI API errors with detailed messages
    */
+  async downloadImage(url) {
+    try {
+      const response = await fetch(url);
+      
+      if (!response.ok) {
+        throw new Error(`Failed to download image: ${response.status} ${response.statusText}`);
+      }
+      
+      const arrayBuffer = await response.arrayBuffer();
+      return Buffer.from(arrayBuffer);
+      
+    } catch (error) {
+      console.error('Download image error:', error);
+      throw error;
+    }
+  }
+
+
   handleOpenAIError(error) {
     console.error('OpenAI API Error:', error);
 

@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // Check server health
 async function checkHealthStatus() {
   try {
-    const response = await fetch(`${API_URL}/health`);
+    const response = await fetch(`/health`);
     const data = await response.json();
 
     if (data.status === "ok") {
@@ -323,7 +323,7 @@ async function generateImage() {
   });
 
   try {
-    const response = await fetch(`${API_URL}/create-image`, {
+    const response = await fetch(`/create-image`, {
       method: "POST",
       body: formData,
     });
@@ -408,7 +408,7 @@ function downloadResult() {
   if (!state.results) return;
 
   const link = document.createElement("a");
-  link.href = state.results.generatedImageUrl;
+  link.href = state.results.imageData;
   link.download = "modified-dental-image.png";
   document.body.appendChild(link);
   link.click();
