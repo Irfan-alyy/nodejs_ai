@@ -48,7 +48,7 @@ class PromptBuilder {
     if (!['upper', 'lower', 'both'].includes(arch)) {
       return 'upper'; // default
     }
-    return arch;
+    return arch;  
   }
 
   /**
