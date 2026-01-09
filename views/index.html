@@ -359,18 +359,18 @@
                             </div>
                             <div class="flex justify-between mt-2">
                                 <a id="download-btn" target="_blank"
-                                   class="text-blue-600 hover:text-blue-800 text-sm flex items-center">
+                                   class="cursor-pointer  hover:text-blue-800 text-sm flex items-center">
                                     <i class="fas fa-download mr-1"></i> Download
                                 </a>
                                 <button id="view-prompt" 
                                         class="text-gray-600 hover:text-gray-800 text-sm flex items-center">
-                                    <i class="fas fa-code mr-1"></i> View Prompt
+                                    <!-- <i class="fas fa-code mr-1"></i> View Prompt -->
                                 </button>
                             </div>
                         </div>
 
                         <!-- AI Description -->
-                        <div class="mb-4">
+                        <!-- <div class="mb-4">
                             <h4 class="font-medium text-gray-700 mb-2 flex items-center">
                                 <i class="fas fa-robot text-blue-500 mr-2"></i>
                                 AI Analysis
@@ -378,7 +378,7 @@
                             <div id="ai-description" class="text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
                                 Loading description...
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Prompt Preview Modal Trigger -->
                         <button id="view-prompt-btn" 
@@ -408,6 +408,10 @@
                     </h3>
                     <ul class="space-y-3 text-sm text-gray-600">
                         <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-0.5 mr-2"></i>
+                            <span>Upload a photo with mouth open and teeth visible.</span>
+                        </li>
+                         <li class="flex items-start">
                             <i class="fas fa-check-circle text-green-500 mt-0.5 mr-2"></i>
                             <span>Upload a clear frontal dental photo</span>
                         </li>
