@@ -28,7 +28,10 @@ const elements = {
   uploadArea: document.getElementById("upload-area"),
   imageInput: document.getElementById("image-input"),
   imagePreview: document.getElementById("image-preview"),
+  imageCamparison:document.getElementById("image-camparison"),
   previewImg: document.getElementById("preview-img"),
+  originalImg: document.getElementById("original-img"),
+  generatedImg: document.getElementById("generated-img"),
   removeImage: document.getElementById("remove-image"),
   imageSize: document.getElementById("image-size"),
   generateBtn: document.getElementById("generate-btn"),
@@ -216,6 +219,8 @@ function handleImageSelect(event) {
       2
     )} MB`;
     elements.imagePreview.classList.remove("hidden");
+    elements.imageCamparison.classList.add("hidden");
+
     updateGenerateButton();
   };
 
@@ -227,6 +232,7 @@ function removeImage() {
   state.imageFile = null;
   elements.imageInput.value = "";
   elements.imagePreview.classList.add("hidden");
+  elements.imageCamparison.classList.add("hidden");
   updateGenerateButton();
 }
 
@@ -345,9 +351,13 @@ async function generateImage() {
       state.results = data.data;
 
       // Update UI with results
-      elements.resultImage.src = data.data.generatedImageUrl;
+      // elements.resultImage.src = data.data.generatedImageUrl;
       // elements.aiDescription.textContent = data.data.description;
+      elements.imageCamparison.classList.remove("hidden");
+      elements.imagePreview.classList.add("hidden");
 
+      elements.originalImg.src= elements.previewImg.src;
+      elements.generatedImg.src= data.data.generatedImageUrl;
       // Set modal content
       elements.fullPrompt.textContent = data.data.prompt;
       elements.apiResponse.textContent = JSON.stringify(data.data, null, 2);
@@ -355,7 +365,7 @@ async function generateImage() {
       // Show results
       setTimeout(() => {
         elements.processingIndicator.classList.add("hidden");
-        elements.resultsSection.classList.remove("hidden");
+        // elements.resultsSection.classList.remove("hidden");
         elements.generateBtn.disabled = false;
       }, 500);
     } else {
