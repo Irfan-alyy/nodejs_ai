@@ -36,9 +36,6 @@ class ImageController {
         });
       }
 
-      // 3. Build prompt from query parameters
-      // console.log(req.body);
-      // console.log(req.query);
       let params;
       if (Object.keys(req.body).length !== 0) params = req.body;
       if (Object.keys(req.query).length !== 0) params = req.query;
@@ -77,12 +74,11 @@ class ImageController {
    */
   async callOpenAI(prompt, imageBuffer) {
     try {
-      // Option 1: Use GPT-4 Vision to analyze and describe modifications
-      console.log("image", imageBuffer);
+      // console.log("image", imageBuffer);
       const imageFile = new File([imageBuffer], "input.jpg", {
         type: "image/jpeg",
       });
-      console.log("image file", imageFile);
+      // console.log("image file", imageFile);
       
       const response = await this.openai.images.edit({
         model: "gpt-image-1",
@@ -94,7 +90,14 @@ class ImageController {
 
       // extract base64 PNG
       const b64 = response.data[0].b64_json;
-      console.log("response of ai", response);
+      // console.log("response of ai: ", response);
+      console.log("Got response from ai.",{
+        image:"bs64 string",
+        size:response?.size,
+        quality:response?.quality,
+        output_format:response?.output_format,
+        usage:response?.usage
+      });
 
       // convert base64 into browser-usable data URL
       const imageData = `data:image/png;base64,${b64}`;
@@ -102,18 +105,11 @@ class ImageController {
 
       // const description = visionResponse.choices[0].message.content;
       const description = "testing local";
-
-      // Option 2: Use DALL-E for actual image generation
-      // Note: DALL-E 3 doesn't support image-to-image editing directly
-      // You would need to use DALL-E 2's edit endpoint or generate from scratch
-
-      // For now, we'll use the vision model's description
-      // In production, you might integrate with other image processing APIs
+      // const imageUrl=
+      //     "https://images.pexels.com/photos/20620210/pexels-photo-20620210.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200"
+       
       return {
         description: description,
-        // imageUrl:
-        //   "https://images.pexels.com/photos/20620210/pexels-photo-20620210.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-        // // In real implementation, this would be the actual generated image URL
         imageUrl: imageData,
       };
     } catch (error) {
