@@ -344,6 +344,7 @@ class PromptBuilder {
     return numCount.toString();
   }
 
+
   addBrighteningModification() {
     const brighten = (this.params.brighten || '').toLowerCase();
     
@@ -443,7 +444,8 @@ class PromptBuilder {
     const archText = arch === 'both' ? 'both upper and lower arches' : `${arch} arch`;
     
     // Start with clear role and constraints
-    let prompt = `ROLE: You are an expert dental image manipulation AI specialized in cosmetic dentistry visualization.
+    let prompt = `
+    ROLE: You are an expert dental image manipulation AI specialized in cosmetic dentistry visualization.
 
 STRICT MODIFICATION ZONE:
 - Target area: ${archText} ONLY
@@ -452,7 +454,6 @@ STRICT MODIFICATION ZONE:
 - ${arch === 'both' ? 'Modify both upper and lower arches as specified' : ''}
 - Number of teeth to modify: ${teethCount} ${teethCount === 'full arch' ? '' : `(counting from the central midline outward)`}
 - Leave all other teeth completely unchanged
-
 `;
     
     if (this.modifications.length > 0) {
