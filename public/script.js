@@ -346,7 +346,7 @@ async function generateImage() {
 
       // Update UI with results
       elements.resultImage.src = data.data.generatedImageUrl;
-      elements.aiDescription.textContent = data.data.description;
+      // elements.aiDescription.textContent = data.data.description;
 
       // Set modal content
       elements.fullPrompt.textContent = data.data.prompt;
