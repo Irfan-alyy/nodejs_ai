@@ -83,7 +83,6 @@ class ImageController {
       const response = await this.openai.images.edit({
         model: "gpt-image-1.5",
         prompt: prompt,
-        size: "1024x1024",
         image: imageFile, // <— main input image
         // mask: optionalMaskBuffer,      // <— only if doing cutout edits
       });
