@@ -1,4 +1,3 @@
-// Configuration
 const API_URL = "http://localhost:3000"; // Change this to your backend URL
 
 // State
@@ -21,8 +20,8 @@ let state = {
   },
   results: null,
 };
-                                                                            
-                                                                           
+
+
 // DOM Elements
 const elements = {
   uploadArea: document.getElementById("upload-area"),
@@ -35,13 +34,13 @@ const elements = {
   processingIndicator: document.getElementById("processing-indicator"),
   progressBar: document.getElementById("progress-bar"),
   progressText: document.getElementById("progress-text"),
-  resultsSection: document.getElementById("results-section"),   
+  resultsSection: document.getElementById("results-section"),
   resultImage: document.getElementById("result-image"),
-  aiDescription: document.getElementById("ai-description"),          
+  aiDescription: document.getElementById("ai-description"),
   downloadBtn: document.getElementById("download-btn"),
   errorDisplay: document.getElementById("error-display"),
   errorMessage: document.getElementById("error-message"),
-  optionsSummary: document.getElementById("summary-content"),      
+  optionsSummary: document.getElementById("summary-content"),
   promptModal: document.getElementById("prompt-modal"),
   fullPrompt: document.getElementById("full-prompt"),
   apiResponse: document.getElementById("api-response"),
@@ -50,7 +49,21 @@ const elements = {
   viewPromptBtn: document.getElementById("view-prompt-btn"),
   resetBtn: document.getElementById("reset-btn"),
   healthStatus: document.getElementById("health-status"),
+  cameraBtn: document.getElementById("camera-btn"),
+  cameraModal: document.getElementById("camera-modal"),
+  cameraVideo: document.getElementById("camera-video"),
+  cameraCanvas: document.getElementById("camera-canvas"),
+  captureBtn: document.getElementById("capture-btn"),
+  closeCamera: document.getElementById("close-camera"),
+  switchCameraBtn: document.getElementById("switch-camera"),
+  cameraSound: document.getElementById("camera-sound"),
+
+
 };
+let cameraStream = null;
+let soundUnlocked = false;
+let currentFacingMode = "user"; // user | environment
+
 
 // Initialize
 document.addEventListener("DOMContentLoaded", function () {
@@ -74,19 +87,13 @@ async function checkHealthStatus() {
                             <div>
                                 <h3 class="font-medium text-green-800">System Ready</h3>
                                 <p class="text-sm text-green-600">
-                                    Connected to server • OpenAI: ${
-                                      data.openaiConfigured
-                                        ? "Available"
-                                        : "Not Configured"
-                                    }
+                                    Connected to server • OpenAI: ${data.openaiConfigured? "Available": "Not Configured"}
                                 </p>
                             </div>
-                        </div>
-                    `;
+                        </div>`;
     }
   } catch (error) {
-    elements.healthStatus.className =
-      "mb-8 p-4 bg-red-50 border border-red-200 rounded-lg";
+    elements.healthStatus.className ="mb-8 p-4 bg-red-50 border border-red-200 rounded-lg";
     elements.healthStatus.innerHTML = `
                     <div class="flex items-center">
                         <i class="fas fa-exclamation-triangle text-red-500 text-lg mr-3"></i>
@@ -190,6 +197,16 @@ function setupEventListeners() {
 
   // Download button
   elements.downloadBtn.addEventListener("click", downloadResult);
+  elements.cameraBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    openCamera()
+  }
+  );
+  elements.captureBtn.addEventListener("click", capturePhoto);
+  elements.closeCamera.addEventListener("click", closeCamera);
+  elements.switchCameraBtn.addEventListener("click", switchCamera);
+
+
 }
 
 // Handle image selection
@@ -349,7 +366,7 @@ async function generateImage() {
       // elements.aiDescription.textContent = data.data.description;
 
       // Set modal content
-      elements.fullPrompt.textContent = data.data.prompt;
+      // elements.fullPrompt.textContent = data.data.prompt;
       elements.apiResponse.textContent = JSON.stringify(data.data, null, 2);
 
       // Show results
@@ -483,3 +500,84 @@ function showTemporaryMessage(message) {
     msg.remove();
   }, 3000);
 }
+
+
+
+
+async function openCamera() {
+  closeCamera(); // ensure clean start
+
+  try {
+    cameraStream = await navigator.mediaDevices.getUserMedia({
+      video: {
+        facingMode: { ideal: currentFacingMode },
+      },
+      audio: false,
+    });
+
+    elements.cameraVideo.srcObject = cameraStream;
+    elements.cameraModal.classList.remove("hidden");
+  } catch (err) {
+    elements.healthStatus.innerHTML = ` <div class="flex items-center">
+                        <i class="fas fa-exclamation-triangle text-red-500 text-lg mr-3"></i>
+                        <div>
+                            <h3 class="font-medium text-red-800">Failed to open Camera</h3>
+                            <p class="text-sm text-red-600">Camera not supported or permission denied</p>
+                        </div>
+                    </div>`
+    elements.healthStatus.className.remove("hidden")
+  }
+}
+async function switchCamera() {
+  currentFacingMode =
+    currentFacingMode === "user" ? "environment" : "user";
+
+  await openCamera();
+}
+
+function capturePhoto() {
+  elements.cameraSound.currentTime = 0;
+  elements.cameraSound.play().catch(() => { });
+
+  setTimeout(() => {
+    const video = elements.cameraVideo;
+    const canvas = elements.cameraCanvas;
+
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    canvas.getContext("2d").drawImage(video, 0, 0);
+
+    canvas.toBlob((blob) => {
+      const file = new File([blob], "selfie.png", { type: "image/png" });
+
+      handleImageSelect({
+        target: { files: [file] },
+      });
+
+      closeCamera();
+    }, "image/png");
+  }, 700);
+}
+
+
+function closeCamera() {
+  if (cameraStream) {
+    cameraStream.getTracks().forEach((track) => track.stop());
+    cameraStream = null;
+  }
+
+  elements.cameraModal.classList.add("hidden");
+}
+
+let audioUnlocked = false;
+
+document.addEventListener("touchstart", () => {
+  if (!audioUnlocked) {
+    shutterSound.play().then(() => {
+      shutterSound.pause();
+      shutterSound.currentTime = 0;
+      audioUnlocked = true;
+    });
+  }
+}, { once: true });

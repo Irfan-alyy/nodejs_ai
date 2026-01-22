@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
     <!-- Custom styles -->
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="bg-gray-50 min-h-screen">
     <!-- Header -->
     <header class="bg-white shadow-sm">
@@ -25,7 +27,8 @@
                         <i class="fas fa-info-circle mr-1"></i>
                         Upload dental images for AI enhancement
                     </span>
-                    <button id="reset-btn" class="px-4 py-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition">
+                    <button id="reset-btn"
+                        class="px-4 py-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition">
                         <i class="fas fa-redo mr-1"></i> Reset
                     </button>
                 </div>
@@ -53,15 +56,15 @@
                 <!-- Step 1: Image Upload -->
                 <section class="bg-white rounded-xl shadow-md p-6">
                     <div class="flex items-center mb-6">
-                        <div class="w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mr-3">
+                        <div
+                            class="w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mr-3">
                             <span class="font-bold">1</span>
                         </div>
                         <h2 class="text-xl font-bold text-gray-800">Upload Dental Image</h2>
                     </div>
-                    
+
                     <div id="file-upload-container" class="mb-6">
-                        <div id="upload-area" 
-                             class="file-upload-area rounded-2xl p-8 text-center cursor-pointer">
+                        <div id="upload-area" class="file-upload-area rounded-2xl p-8 text-center cursor-pointer">
                             <i class="fas fa-cloud-upload-alt text-5xl text-gray-300 mb-4"></i>
                             <h3 class="text-lg font-medium text-gray-700 mb-2">
                                 Drop your dental image here
@@ -69,29 +72,28 @@
                             <p class="text-gray-500 mb-4">
                                 or click to browse (JPEG, PNG, WebP - max 30MB)
                             </p>
-                            <label for="image-input" 
-                                   class="inline-block px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition cursor-pointer">
+                            <label for="image-input"
+                                class="inline-block px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition cursor-pointer">
                                 <i class="fas fa-folder-open mr-2"></i>Select Image
                             </label>
-                            <input type="file" 
-                                   id="image-input" 
-                                   class="hidden" 
-                                   accept="image/*">
+                            <button id="camera-btn"
+                                class="inline-block mt-3 px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition">
+                                <i class="fas fa-camera mr-2"></i> Take Picture
+                            </button>
+                            <input type="file" id="image-input" class="hidden" accept="image/*">
                         </div>
-                        
+
                         <div id="image-preview" class="mt-6 hidden">
                             <div class="flex items-center justify-between mb-4">
                                 <h3 class="font-medium text-gray-700">Selected Image</h3>
-                                <button id="remove-image" 
-                                        class="text-red-500 hover:text-red-700">
+                                <button id="remove-image" class="text-red-500 hover:text-red-700">
                                     <i class="fas fa-times mr-1"></i>Remove
                                 </button>
                             </div>
                             <div class="relative">
-                                <img id="preview-img" 
-                                     class="max-h-80 w-auto mx-auto rounded-lg shadow" 
-                                     alt="Preview">
-                                <div class="absolute top-2 right-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-sm">
+                                <img id="preview-img" class="max-h-80 w-auto mx-auto rounded-lg shadow" alt="Preview">
+                                <div
+                                    class="absolute top-2 right-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-sm">
                                     <i class="fas fa-image mr-1"></i>
                                     <span id="image-size">0 MB</span>
                                 </div>
@@ -103,7 +105,8 @@
                 <!-- Step 2: Modification Options -->
                 <section class="bg-white rounded-xl shadow-md p-6">
                     <div class="flex items-center mb-6">
-                        <div class="w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mr-3">
+                        <div
+                            class="w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mr-3">
                             <span class="font-bold">2</span>
                         </div>
                         <h2 class="text-xl font-bold text-gray-800">Select Modifications</h2>
@@ -122,20 +125,20 @@
                                     Dental Arch
                                 </label>
                                 <div class="flex space-x-2">
-                                    <button data-option="arch" data-value="upper" 
-                                            class="option-card flex-1 p-4 border rounded-lg text-center hover:bg-gray-50">
+                                    <button data-option="arch" data-value="upper"
+                                        class="option-card flex-1 p-4 border rounded-lg text-center hover:bg-gray-50">
                                         <i class="fas fa-arrow-up text-lg mb-2 text-gray-600"></i>
                                         <p class="font-medium">Upper</p>
                                         <p class="text-xs text-gray-500 mt-1">Maxillary</p>
                                     </button>
-                                    <button data-option="arch" data-value="lower" 
-                                            class="option-card flex-1 p-4 border rounded-lg text-center hover:bg-gray-50">
+                                    <button data-option="arch" data-value="lower"
+                                        class="option-card flex-1 p-4 border rounded-lg text-center hover:bg-gray-50">
                                         <i class="fas fa-arrow-down text-lg mb-2 text-gray-600"></i>
                                         <p class="font-medium">Lower</p>
                                         <p class="text-xs text-gray-500 mt-1">Mandibular</p>
                                     </button>
-                                    <button data-option="arch" data-value="both" 
-                                            class="option-card flex-1 p-4 border rounded-lg text-center hover:bg-gray-50">
+                                    <button data-option="arch" data-value="both"
+                                        class="option-card flex-1 p-4 border rounded-lg text-center hover:bg-gray-50">
                                         <i class="fas fa-exchange-alt text-lg mb-2 text-gray-600"></i>
                                         <p class="font-medium">Both</p>
                                         <p class="text-xs text-gray-500 mt-1">Full Smile</p>
@@ -149,28 +152,28 @@
                                     Number of Teeth
                                 </label>
                                 <div class="grid grid-cols-3 gap-2">
-                                    <button data-option="teeth_count" data-value="2" 
-                                            class="option-card p-3 border rounded-lg text-center hover:bg-gray-50">
+                                    <button data-option="teeth_count" data-value="2"
+                                        class="option-card p-3 border rounded-lg text-center hover:bg-gray-50">
                                         <p class="font-medium">2</p>
                                     </button>
-                                    <button data-option="teeth_count" data-value="4" 
-                                            class="option-card p-3 border rounded-lg text-center hover:bg-gray-50">
+                                    <button data-option="teeth_count" data-value="4"
+                                        class="option-card p-3 border rounded-lg text-center hover:bg-gray-50">
                                         <p class="font-medium">4</p>
                                     </button>
-                                    <button data-option="teeth_count" data-value="6" 
-                                            class="option-card p-3 border rounded-lg text-center hover:bg-gray-50">
+                                    <button data-option="teeth_count" data-value="6"
+                                        class="option-card p-3 border rounded-lg text-center hover:bg-gray-50">
                                         <p class="font-medium">6</p>
                                     </button>
-                                    <button data-option="teeth_count" data-value="8" 
-                                            class="option-card p-3 border rounded-lg text-center hover:bg-gray-50">
+                                    <button data-option="teeth_count" data-value="8"
+                                        class="option-card p-3 border rounded-lg text-center hover:bg-gray-50">
                                         <p class="font-medium">8</p>
                                     </button>
-                                    <button data-option="teeth_count" data-value="10" 
-                                            class="option-card p-3 border rounded-lg text-center hover:bg-gray-50">
+                                    <button data-option="teeth_count" data-value="10"
+                                        class="option-card p-3 border rounded-lg text-center hover:bg-gray-50">
                                         <p class="font-medium">10</p>
                                     </button>
-                                    <button data-option="teeth_count" data-value="full" 
-                                            class="option-card p-3 border rounded-lg text-center hover:bg-gray-50">
+                                    <button data-option="teeth_count" data-value="full"
+                                        class="option-card p-3 border rounded-lg text-center hover:bg-gray-50">
                                         <p class="font-medium">Full Arch</p>
                                     </button>
                                 </div>
@@ -189,20 +192,20 @@
                                 Teeth Brightening
                             </label>
                             <div class="flex space-x-2">
-                                <button data-option="brighten" data-value="subtle" 
-                                        class="option-card flex-1 p-4 border rounded-lg text-center hover:bg-gray-50">
+                                <button data-option="brighten" data-value="subtle"
+                                    class="option-card flex-1 p-4 border rounded-lg text-center hover:bg-gray-50">
                                     <i class="fas fa-sun text-lg mb-2 text-yellow-400"></i>
                                     <p class="font-medium">Subtle</p>
                                     <p class="text-xs text-gray-500 mt-1">Natural White</p>
                                 </button>
-                                <button data-option="brighten" data-value="natural" 
-                                        class="option-card flex-1 p-4 border rounded-lg text-center hover:bg-gray-50">
+                                <button data-option="brighten" data-value="natural"
+                                    class="option-card flex-1 p-4 border rounded-lg text-center hover:bg-gray-50">
                                     <i class="fas fa-sun text-lg mb-2 text-yellow-500"></i>
                                     <p class="font-medium">Natural</p>
                                     <p class="text-xs text-gray-500 mt-1">Healthy White</p>
                                 </button>
-                                <button data-option="brighten" data-value="strong" 
-                                        class="option-card flex-1 p-4 border rounded-lg text-center hover:bg-gray-50">
+                                <button data-option="brighten" data-value="strong"
+                                    class="option-card flex-1 p-4 border rounded-lg text-center hover:bg-gray-50">
                                     <i class="fas fa-sun text-lg mb-2 text-yellow-600"></i>
                                     <p class="font-medium">Strong</p>
                                     <p class="text-xs text-gray-500 mt-1">Bright White</p>
@@ -240,18 +243,18 @@
                                     Crowding Correction
                                 </label>
                                 <div class="grid grid-cols-3 gap-2">
-                                    <button data-option="correct_crowding_with_alignment" data-value="mild" 
-                                            class="option-card p-3 border rounded-lg text-center hover:bg-gray-50">
+                                    <button data-option="correct_crowding_with_alignment" data-value="mild"
+                                        class="option-card p-3 border rounded-lg text-center hover:bg-gray-50">
                                         <p class="font-medium">Mild</p>
                                         <p class="text-xs text-gray-500">Slight</p>
                                     </button>
-                                    <button data-option="correct_crowding_with_alignment" data-value="moderate" 
-                                            class="option-card p-3 border rounded-lg text-center hover:bg-gray-50">
+                                    <button data-option="correct_crowding_with_alignment" data-value="moderate"
+                                        class="option-card p-3 border rounded-lg text-center hover:bg-gray-50">
                                         <p class="font-medium">Moderate</p>
                                         <p class="text-xs text-gray-500">Balanced</p>
                                     </button>
-                                    <button data-option="correct_crowding_with_alignment" data-value="severe" 
-                                            class="option-card p-3 border rounded-lg text-center hover:bg-gray-50">
+                                    <button data-option="correct_crowding_with_alignment" data-value="severe"
+                                        class="option-card p-3 border rounded-lg text-center hover:bg-gray-50">
                                         <p class="font-medium">Severe</p>
                                         <p class="text-xs text-gray-500">Full</p>
                                     </button>
@@ -277,7 +280,8 @@
                                     <span class="text-gray-700">Reduce Gummy Smile</span>
                                 </label>
                                 <label class="flex items-center space-x-2 cursor-pointer">
-                                    <input type="checkbox" id="improve_shape_of_incisal_edges" class="rounded text-blue-600">
+                                    <input type="checkbox" id="improve_shape_of_incisal_edges"
+                                        class="rounded text-blue-600">
                                     <span class="text-gray-700">Improve Incisor Shape</span>
                                 </label>
                             </div>
@@ -305,7 +309,8 @@
                 <!-- Step 3: Process & Results -->
                 <section class="bg-white rounded-xl shadow-md p-6 sticky top-8">
                     <div class="flex items-center mb-6">
-                        <div class="w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mr-3">
+                        <div
+                            class="w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mr-3">
                             <span class="font-bold">3</span>
                         </div>
                         <h2 class="text-xl font-bold text-gray-800">Generate Result</h2>
@@ -323,9 +328,9 @@
                     </div>
 
                     <!-- Generate Button -->
-                    <button id="generate-btn" 
-                            class="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-lg hover:from-blue-700 hover:to-blue-800 transition flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
-                            disabled>
+                    <button id="generate-btn"
+                        class="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-lg hover:from-blue-700 hover:to-blue-800 transition flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                        disabled>
                         <i class="fas fa-magic mr-2"></i>
                         Generate Modified Image
                     </button>
@@ -333,11 +338,14 @@
                     <!-- Processing Indicator -->
                     <div id="processing-indicator" class="mt-6 hidden">
                         <div class="flex items-center justify-center space-x-3 mb-4">
-                            <div class="w-6 h-6 border-2 border-blue-200 border-t-blue-600 rounded-full loading-spinner"></div>
+                            <div
+                                class="w-6 h-6 border-2 border-blue-200 border-t-blue-600 rounded-full loading-spinner">
+                            </div>
                             <p class="font-medium text-gray-700">Processing with AI...</p>
                         </div>
                         <div class="w-full bg-gray-200 rounded-full h-2">
-                            <div id="progress-bar" class="progress-bar h-2 rounded-full bg-blue-600" style="width: 0%"></div>
+                            <div id="progress-bar" class="progress-bar h-2 rounded-full bg-blue-600" style="width: 0%">
+                            </div>
                         </div>
                         <p id="progress-text" class="text-sm text-gray-500 text-center mt-2">Starting analysis...</p>
                     </div>
@@ -348,22 +356,21 @@
                             <i class="fas fa-check-circle text-green-500 mr-2"></i>
                             Results
                         </h3>
-                        
+
                         <!-- Modified Image -->
                         <div class="mb-6">
                             <h4 class="font-medium text-gray-700 mb-2">Modified Image</h4>
                             <div class="border rounded-lg overflow-hidden">
-                                <img id="result-image" 
-                                     class="w-full h-64 object-contain bg-gray-100"
-                                     alt="Modified Result">
+                                <img id="result-image" class="w-full h-64 object-contain bg-gray-100"
+                                    alt="Modified Result">
                             </div>
                             <div class="flex justify-between mt-2">
                                 <a id="download-btn" target="_blank"
-                                   class="cursor-pointer  hover:text-blue-800 text-sm flex items-center">
+                                    class="cursor-pointer  hover:text-blue-800 text-sm flex items-center">
                                     <i class="fas fa-download mr-1"></i> Download
                                 </a>
-                                <button id="view-prompt" 
-                                        class="text-gray-600 hover:text-gray-800 text-sm flex items-center">
+                                <button id="view-prompt"
+                                    class="text-gray-600 hover:text-gray-800 text-sm flex items-center">
                                     <!-- <i class="fas fa-code mr-1"></i> View Prompt -->
                                 </button>
                             </div>
@@ -381,11 +388,11 @@
                         </div> -->
 
                         <!-- Prompt Preview Modal Trigger -->
-                        <button id="view-prompt-btn" 
-                                class="w-full mt-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition flex items-center justify-center">
+                        <!-- <button id="view-prompt-btn"
+                            class="w-full mt-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition flex items-center justify-center">
                             <i class="fas fa-eye mr-2"></i>
                             View Full AI Prompt
-                        </button>
+                        </button> -->
                     </div>
 
                     <!-- Error Display -->
@@ -411,7 +418,7 @@
                             <i class="fas fa-check-circle text-green-500 mt-0.5 mr-2"></i>
                             <span>Upload a photo with mouth open and teeth visible.</span>
                         </li>
-                         <li class="flex items-start">
+                        <li class="flex items-start">
                             <i class="fas fa-check-circle text-green-500 mt-0.5 mr-2"></i>
                             <span>Upload a clear frontal dental photo</span>
                         </li>
@@ -433,8 +440,9 @@
         </div>
     </main>
 
-    <!-- Prompt Modal -->
-    <div id="prompt-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden z-50">
+    <!-- Prompt Modal
+    <div id="prompt-modal"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden z-50">
         <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[80vh] flex flex-col">
             <div class="flex items-center justify-between p-6 border-b">
                 <h3 class="text-xl font-bold text-gray-800 flex items-center">
@@ -448,22 +456,24 @@
             <div class="p-6 overflow-y-auto">
                 <div class="mb-4">
                     <h4 class="font-medium text-gray-700 mb-2">Generated Prompt:</h4>
-                    <pre id="full-prompt" class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm"></pre>
+                    <pre id="full-prompt"
+                        class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm"></pre>
                 </div>
                 <div>
                     <h4 class="font-medium text-gray-700 mb-2">API Response:</h4>
-                    <pre id="api-response" class="bg-gray-50 border border-gray-200 p-4 rounded-lg overflow-x-auto text-sm"></pre>
+                    <pre id="api-response"
+                        class="bg-gray-50 border border-gray-200 p-4 rounded-lg overflow-x-auto text-sm"></pre>
                 </div>
             </div>
             <div class="p-6 border-t">
-                <button id="copy-prompt" 
-                        class="w-full py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition flex items-center justify-center">
+                <button id="copy-prompt"
+                    class="w-full py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition flex items-center justify-center">
                     <i class="fas fa-copy mr-2"></i>
                     Copy Prompt to Clipboard
                 </button>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Footer -->
     <footer class="bg-white border-t mt-12">
@@ -483,7 +493,55 @@
             </div>
         </div>
     </footer>
-    <script src="./script.js" ></script>
+    <!-- Camera Modal -->
+<div id="camera-modal"
+     class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center hidden z-50">
+  <div class="bg-white rounded-xl p-6 w-full max-w-md relative">
+    
+    <h3 class="text-lg font-bold mb-4 flex items-center">
+      <i class="fas fa-camera mr-2"></i> Capture Image
+    </h3>
+    <!-- Camera Overlay -->
+     <div class="absolute inset-0 bg-black bg-opacity-30 rounded-xl pointer-events-none"></div>
+<div class="absolute inset-0 pointer-events-none flex items-center justify-center">
+  <div class="relative w-64 h-36 border-2 border-white rounded-xl">
+    <i class="fas fa-tooth absolute inset-0 flex items-center justify-center text-white text-3xl opacity-80"></i>
+    <p class="absolute -bottom-7 w-full text-center text-white text-xs">
+      Open mouth & show teeth clearly
+    </p>
+  </div>
+</div>
+
+    <video id="camera-video"
+           autoplay
+           playsinline
+           class="w-full rounded-lg bg-black mb-4"></video>
+
+    <canvas id="camera-canvas" class="hidden"></canvas>
+
+   <div class="flex justify-between items-center mt-3">
+  <button id="switch-camera"
+    class="px-3 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 text-sm">
+    <i class="fas fa-sync-alt mr-1"></i> Switch
+  </button>
+
+  <button id="capture-btn"
+    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+    <i class="fas fa-camera mr-1"></i> Capture
+  </button>
+
+  <button id="close-camera"
+    class="px-3 py-2 bg-red-100 rounded-lg hover:bg-red-200 text-sm">
+    Cancel
+  </button>
+</div>
+
+  </div>
+</div>
+
+<audio id="camera-sound" src="./sounds/shutter.mp3" preload="auto"></audio>
+    <script src="./script.js"></script>
 
 </body>
+
 </html>
