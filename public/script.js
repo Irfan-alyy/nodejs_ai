@@ -26,6 +26,7 @@ let state = {
 // DOM Elements
 const elements = {
   uploadArea: document.getElementById("upload-area"),
+  uploadButton: document.getElementById("browse-btn"),
   imageInput: document.getElementById("image-input"),
   imagePreview: document.getElementById("image-preview"),
   imageCamparison:document.getElementById("image-camparison"),
@@ -110,6 +111,10 @@ function setupEventListeners() {
   elements.uploadArea.addEventListener("click", () =>
     elements.imageInput.click()
   );
+  elements.uploadButton.addEventListener("click", (e) => {
+  e.stopPropagation();
+  elements.imageInput.click();
+});
   elements.imageInput.addEventListener("change", handleImageSelect);
   elements.removeImage.addEventListener("click", removeImage);
 
@@ -175,21 +180,21 @@ function setupEventListeners() {
   elements.generateBtn.addEventListener("click", generateImage);
 
   // Modal
-  elements.viewPromptBtn.addEventListener("click", showPromptModal);
-  elements.closeModal.addEventListener("click", () => {
-    elements.promptModal.classList.add("hidden");
-  });
-  elements.copyPrompt.addEventListener("click", copyPromptToClipboard);
+  // elements.viewPromptBtn.addEventListener("click", showPromptModal);
+  // elements.closeModal.addEventListener("click", () => {
+  //   elements.promptModal.classList.add("hidden");
+  // });
+  // elements.copyPrompt.addEventListener("click", copyPromptToClipboard);
 
   // Reset
   elements.resetBtn.addEventListener("click", resetAll);
 
   // Close modal on outside click
-  elements.promptModal.addEventListener("click", (e) => {
-    if (e.target === elements.promptModal) {
-      elements.promptModal.classList.add("hidden");
-    }
-  });
+  // elements.promptModal.addEventListener("click", (e) => {
+  //   if (e.target === elements.promptModal) {
+  //     elements.promptModal.classList.add("hidden");
+  //   }
+  // });
 
   // Download button
   elements.downloadBtn.addEventListener("click", downloadResult);
@@ -359,7 +364,7 @@ async function generateImage() {
       elements.originalImg.src= elements.previewImg.src;
       elements.generatedImg.src= data.data.generatedImageUrl;
       // Set modal content
-      elements.fullPrompt.textContent = data.data.prompt;
+      // elements.fullPrompt.textContent = data.data.prompt;
       elements.apiResponse.textContent = JSON.stringify(data.data, null, 2);
 
       // Show results
@@ -396,7 +401,7 @@ function showError(message) {
 // Show prompt modal
 function showPromptModal() {
   if (state.results) {
-    elements.promptModal.classList.remove("hidden");
+    // elements.promptModal.classList.remove("hidden");
   }
 }
 
